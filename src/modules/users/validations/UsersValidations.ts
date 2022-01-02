@@ -1,6 +1,6 @@
 import { celebrate, Segments, Joi } from 'celebrate';
 
-export default class ProductsValidations {
+export default class UsersValidations {
   public create() {
     return celebrate({
       [Segments.BODY]: {
