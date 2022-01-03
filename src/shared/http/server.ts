@@ -7,12 +7,17 @@ import cors from 'cors';
 import routes from './routes';
 import errors from '@shared/middlewares/errors';
 import '@shared/typeorm';
+import uploadSettings from '@config/upload';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use('/files', express.static(uploadSettings.directory));
+
 app.use(routes);
+
 app.use(celebrateErrors());
 app.use(errors);
 
