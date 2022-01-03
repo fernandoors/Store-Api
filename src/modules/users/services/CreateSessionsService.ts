@@ -1,5 +1,7 @@
+import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
@@ -10,6 +12,7 @@ interface IRequest {
 }
 interface IResponse {
   user: User;
+  token: string;
 }
 export default class CreateSessionsService {
   public async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -28,7 +31,16 @@ export default class CreateSessionsService {
       throw new AppError('Incorrect email/password.', 401);
     }
 
-    return { user };
+    const token = this.generateToken(user.id);
+
+    return { user, token };
+  }
+
+  private generateToken(userId: string): string {
+    return sign({}, authConfig.jwt.secret, {
+      subject: userId,
+      expiresIn: authConfig.jwt.expiresIn,
+    });
   }
 
   private async comparePassword(
