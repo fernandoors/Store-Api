@@ -1,4 +1,5 @@
 import productsRouter from '@modules/products/routes/products.routes';
+import passwordRouter from '@modules/users/routes/passwords.routes';
 import sessionsRouter from '@modules/users/routes/sessions.routes';
 import usersRouter from '@modules/users/routes/users.routes';
 import { Router } from 'express';
@@ -11,6 +12,7 @@ routes.get('/', (request, response) => {
 
 routes.use('/products', productsRouter);
 routes.use('/users', usersRouter);
+routes.use('/password', passwordRouter);
 routes.use('/sessions', sessionsRouter);
 
 export default routes;
