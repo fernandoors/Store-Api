@@ -1,5 +1,6 @@
 import hashPassowrd from '@config/hashPassword';
 import AppError from '@shared/errors/AppError';
+import { classToClass } from 'class-transformer';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
@@ -29,6 +30,6 @@ export default class CreateUserService {
 
     await usersRepository.save(user);
 
-    return user;
+    return classToClass(user);
   }
 }
