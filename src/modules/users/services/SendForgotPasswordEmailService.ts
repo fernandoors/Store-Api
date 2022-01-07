@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import UserTokensRepository from '../typeorm/repositories/UserTokensRepository';
+import urls from '@config/urls';
 
 interface IRequest {
   email: string;
@@ -34,7 +35,7 @@ export default class SendForgotPasswordEmailService {
       templateData: {
         file: forgotPasswordTemplate,
         variables: {
-          link: `http://localhost:3333/reset-password?token=${token}`,
+          link: `${urls.appWebUrl}/reset-password?token=${token}`,
           name: user.name,
         },
       },
