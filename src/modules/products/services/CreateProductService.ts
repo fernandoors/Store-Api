@@ -1,5 +1,6 @@
-import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
+import RedisCache from '@shared/cache/RedisCache';
+import AppError from '@shared/errors/AppError';
 import Product from '../typeorm/entities/Product';
 import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
 
@@ -20,6 +21,9 @@ export default class CreateProductService {
     }
 
     const product = productsRepository.create({ name, price, quantity });
+
+    const redisCache = new RedisCache();
+    await redisCache.invalidate('PRODUCTS_LIST');
 
     await productsRepository.save(product);
 
