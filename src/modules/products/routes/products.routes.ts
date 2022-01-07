@@ -1,3 +1,4 @@
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import { Router } from 'express';
 
 import ProductsController from '../controllers/ProductsController';
@@ -8,14 +9,14 @@ const productsController = new ProductsController();
 const productsValidations = new ProductsValidations();
 
 productsRouter.get('/', productsController.index);
+productsRouter.get('/:id', productsValidations.show(), productsController.show);
 
+productsRouter.use(isAuthenticated);
 productsRouter.post(
   '/',
   productsValidations.create(),
   productsController.create,
 );
-
-productsRouter.get('/:id', productsValidations.show(), productsController.show);
 
 productsRouter.put(
   '/:id',
