@@ -1,4 +1,6 @@
 import EtherealMail from '@config/mail/EtherealMail';
+import SESMail from '@config/mail/SESMail';
+import mailConfig from '@config/mail/mail';
 import path from 'path';
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
@@ -29,7 +31,7 @@ export default class SendForgotPasswordEmailService {
       'forgot_password.hbs',
     );
 
-    await EtherealMail.sendMail({
+    const mailTemplateData = {
       to: { email, name: user.name },
       subject: 'Reset Password',
       templateData: {
@@ -39,6 +41,12 @@ export default class SendForgotPasswordEmailService {
           name: user.name,
         },
       },
-    });
+    };
+
+    if (mailConfig.driver === 'ses') {
+      await SESMail.sendMail(mailTemplateData);
+    } else {
+      await EtherealMail.sendMail(mailTemplateData);
+    }
   }
 }
