@@ -35,8 +35,7 @@ export default class UpdateProductService {
     product.name = name;
     product.price = price;
     product.quantity = quantity;
-    const redisCache = new RedisCache();
-    await redisCache.invalidate('PRODUCTS_LIST');
+    await RedisCache.invalidate('PRODUCTS_LIST');
     await productsRepository.save(product);
 
     return product;

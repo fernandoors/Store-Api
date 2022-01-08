@@ -22,8 +22,7 @@ export default class CreateProductService {
 
     const product = productsRepository.create({ name, price, quantity });
 
-    const redisCache = new RedisCache();
-    await redisCache.invalidate('PRODUCTS_LIST');
+    await RedisCache.invalidate('PRODUCTS_LIST');
 
     await productsRepository.save(product);
 
