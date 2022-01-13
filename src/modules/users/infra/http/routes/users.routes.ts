@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
+import isAuthenticated from '@shared/infra/http/middlewares/isAuthenticated';
 import uploadSettings from '@config/upload';
 
 import UsersController from '../controllers/UsersController';

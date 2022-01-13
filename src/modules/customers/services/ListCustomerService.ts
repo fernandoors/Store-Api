@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import { PaginationAwareObject } from 'typeorm-pagination/dist/helpers/pagination';
-import Customer from '../typeorm/entities/Customer';
-import { CustomersRepository } from '../typeorm/repositores/CustomersRepository';
+import Customer from '../infra/typeorm/entities/Customer';
+import { CustomersRepository } from '../infra/typeorm/repositores/CustomersRepository';
 
 interface ICustomerWithPaginate extends PaginationAwareObject {
   data: Customer[];
