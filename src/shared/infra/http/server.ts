@@ -3,6 +3,7 @@ import 'dotenv/config';
 import express from 'express';
 import 'express-async-errors';
 import { pagination } from 'typeorm-pagination';
+import '@shared/container';
 import { errors as celebrateErrors } from 'celebrate';
 import cors from 'cors';
 import routes from './routes';
