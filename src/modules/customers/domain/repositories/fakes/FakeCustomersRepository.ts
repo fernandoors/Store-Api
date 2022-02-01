@@ -17,7 +17,10 @@ export default class FakeCustomersRepository implements ICustomersRepository {
   }
 
   public async save(customer: Customer): Promise<Customer> {
-    Object.assign(this.customers, customer);
+    this.customers = this.customers.map(c => {
+      if (c.id == customer.id) return customer;
+      return c;
+    });
     return customer;
   }
 
